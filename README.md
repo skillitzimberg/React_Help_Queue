@@ -305,3 +305,8 @@ Install UUID library
 ```
 npm install uuid@3.2.1
 ```
+
+Install Memory.js
+```
+npm install moment@2.18.1
+```
