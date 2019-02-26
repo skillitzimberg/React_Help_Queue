@@ -325,3 +325,11 @@ Install Babel-Jest Plugin
 ```
 npm install babel-jest@20.0.3 --save-dev
 ```
+Install Redux
+```
+npm install redux@3.7.2 --save
+```
+Install React-Redux
+```
+ npm install react-redux@5.0.6 --save
+ ```
