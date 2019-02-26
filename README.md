@@ -310,3 +310,18 @@ Install Memory.js
 ```
 npm install moment@2.18.1
 ```
+
+Install Jest
+```
+npm install jest@20.0.4 --save-dev
+```
+
+Install Jest globally
+```
+npm install jest@20.0.4 -g
+```
+
+Install Babel-Jest Plugin
+```
+npm install babel-jest@20.0.3 --save-dev
+```
