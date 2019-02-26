@@ -14,7 +14,7 @@ function NewTicketForm(props){
     const { dispatch } = props;
     const action = {
       type: 'ADD_TICKET',
-      id: null,
+      id: v4(),
       names: _names.value,
       location: _location.value,
       issue: _issue.value,

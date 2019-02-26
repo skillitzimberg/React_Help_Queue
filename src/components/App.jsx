@@ -1,18 +1,20 @@
 import React from 'react';
 import 'moment';
 import Error404 from './Error404';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import TicketList from './TicketList';
 import NewTicketControl from './NewTicketControl';
 import Admin from './Admin';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
-      masterTicketList: {},
       selectedTicket: null
     };
     this.handleChangingSelectedTicket = this.handleChangingSelectedTicket.bind(this);
@@ -32,7 +34,7 @@ class App extends React.Component {
           <Route exact path='/'
             render={()=>
               <TicketList
-                ticketList={this.state.masterTicketList} />} />
+                ticketList={this.props.masterTicketList} />} />
 
           <Route path='/newticket'
             render={()=>
@@ -41,7 +43,7 @@ class App extends React.Component {
           <Route path='/admin'
             render={(props)=>
               <Admin
-                ticketList={this.state.masterTicketList}
+                ticketList={this.props.masterTicketList}
                 currentRouterPath={props.location.pathname}
                 onTicketSelection={this.handleChangingSelectedTicket}
                 selectedTicket={this.state.selectedTicket}/>} />
@@ -64,11 +66,11 @@ class App extends React.Component {
   }
 
   updateTicketElapsedWaitTime() {
-    var newMasterTicketList = Object.assign({}, this.state.masterTicketList);
-    Object.keys(newMasterTicketList).forEach(ticketId => {
-      newMasterTicketList[ticketId].formattedWaitTime = (newMasterTicketList[ticketId].timeOpen).fromNow(true);
-    });
-    this.setState({masterTicketList: newMasterTicketList});
+    // var newMasterTicketList = Object.assign({}, this.state.masterTicketList);
+    // Object.keys(newMasterTicketList).forEach(ticketId => {
+    //   newMasterTicketList[ticketId].formattedWaitTime = (newMasterTicketList[ticketId].timeOpen).fromNow(true);
+    // });
+    // this.setState({masterTicketList: newMasterTicketList});
   }
 
   componentWillUnmount() {
@@ -77,4 +79,14 @@ class App extends React.Component {
 
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    masterTicketList: state
+  }
+}
+
+App.propTypes = {
+  newMasterTicketList: PropTypes.object
+};
+
+export default withRouter(connect(mapStateToProps)(App));
