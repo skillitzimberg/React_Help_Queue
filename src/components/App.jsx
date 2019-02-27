@@ -11,15 +11,6 @@ import { connect } from 'react-redux';
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log(props);
-    this.state = {
-      selectedTicket: null
-    };
-    this.handleChangingSelectedTicket = this.handleChangingSelectedTicket.bind(this);
-  }
-
   render() {
     return (
       <div>
@@ -43,10 +34,7 @@ class App extends React.Component {
           <Route path='/admin'
             render={(props)=>
               <Admin
-                ticketList={this.props.masterTicketList}
-                currentRouterPath={props.location.pathname}
-                onTicketSelection={this.handleChangingSelectedTicket}
-                selectedTicket={this.state.selectedTicket}/>} />
+                currentRouterPath={props.location.pathname}/>} />
 
           <Route component={Error404} />
         </Switch>
@@ -54,23 +42,27 @@ class App extends React.Component {
     );
   }
 
-  handleChangingSelectedTicket(ticketId){
-    this.setState({selectedTicket: ticketId});
-  }
-
   componentDidMount() {
     this.waitTimeUpdateTimer = setInterval(() =>
       this.updateTicketElapsedWaitTime(),
-      60000
+      5000
     );
   }
 
   updateTicketElapsedWaitTime() {
-    // var newMasterTicketList = Object.assign({}, this.state.masterTicketList);
-    // Object.keys(newMasterTicketList).forEach(ticketId => {
-    //   newMasterTicketList[ticketId].formattedWaitTime = (newMasterTicketList[ticketId].timeOpen).fromNow(true);
-    // });
-    // this.setState({masterTicketList: newMasterTicketList});
+    const { dispatch } = this.props;
+    console.log('updateTicketElapsedWaitTime')
+    Object.keys(this.props.masterTicketList).map(ticketId => {
+      const ticket = this.props.masterTicketList[ticketId];
+      const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
+      const action = {
+        type: 'UPDATED_TIME',
+        id: ticketId,
+        formattedWaitTime: newFormattedWaitTime
+      };
+      console.log(action.formattedWaitTime)
+      dispatch(action);
+    });
   }
 
   componentWillUnmount() {
@@ -81,7 +73,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    masterTicketList: state
+    masterTicketList: state.masterTicketList
   }
 }
 
