@@ -1,5 +1,6 @@
 import React from 'react';
 import 'moment';
+import c from './../constants';
 import Error404 from './Error404';
 import PropTypes from 'prop-types';
 import Header from './Header';
@@ -56,7 +57,7 @@ class App extends React.Component {
       const ticket = this.props.masterTicketList[ticketId];
       const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
       const action = {
-        type: 'UPDATED_TIME',
+        type: c.UPDATED_TIME,
         id: ticketId,
         formattedWaitTime: newFormattedWaitTime
       };

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'moment';
 import { connect } from 'react-redux';
 
 function Ticket(props){
@@ -9,7 +8,7 @@ function Ticket(props){
     console.log(props);
     const { dispatch } = props;
     const action = {
-      type: 'SELECT_TICKET',
+      type: c.SELECT_TICKET,
       ticketId: ticketId
     };
     dispatch(action);

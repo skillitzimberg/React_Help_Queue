@@ -1,4 +1,5 @@
 import ticketListReducer from './../../src/reducers/ticket-list-reducer';
+import c from './../constants';
 import Moment from 'moment';
 
 describe('ticketListReducer', () => {
@@ -19,7 +20,7 @@ describe('ticketListReducer', () => {
   test('Should successfully add new ticket data to masterTicketList', () => {
     const { names, location, issue, timeOpen, id } = sampleTicketData;
     action = {
-      type: 'ADD_TICKET',
+      type: c.ADD_TICKET,
       names: names,
       location: location,
       issue: issue,
@@ -40,7 +41,7 @@ describe('ticketListReducer', () => {
   test('Should add freshly-calculated Moment-formatted wait timne to ticket entry', () => {
     const { names, location, issue, timeOpen, id } = sampleTicketData;
     action = {
-      type: 'UPDATE_TIME',
+      type: c.UPDATE_TIME,
       formattedWaitTime: '4 minutes',
       id: id
     };
@@ -59,7 +60,7 @@ describe('ticketListReducer', () => {
   test('New ticket should include Moment-formatted wait times', () => {
     const { names, location, issue,  timeOpen, id } = sampleTicketData;
     action = {
-      type: 'ADD_TICKET',
+      type: c.ADD_TICKET,
       names: names,
       location: location,
       issue: issue,
